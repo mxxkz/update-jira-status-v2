@@ -41,7 +41,7 @@ class ZephyrLibraryUat():
         return token.decode('utf-8') if isinstance(token, bytes) else token
 
     @keyword("Get All Execution Navigation Results")
-    def get_all_execution_navigation_results(self, project_name, version_name, cycle_name, folder_names=None):
+    def get_all_execution_navigation_results(self, project_name, version_name, cycle_names, folder_names=None):
         method = "POST"
         endpoint_path = "/public/rest/api/1.0/zql/search"
         full_endpoint = endpoint_path
@@ -51,6 +51,8 @@ class ZephyrLibraryUat():
         offset = 0
         all_executions = []
 
+        cycle_clause = ', '.join(f'"{cycle}"' for cycle in cycle_names)
+        
         folder_clause = ""
         if folder_names:
             formatted_folders = ', '.join(f'"{folder}"' for folder in folder_names)
@@ -59,7 +61,7 @@ class ZephyrLibraryUat():
         zql_query = (
             f'project = "{project_name}" '
             f'AND fixVersion = "{version_name}" '
-            f'AND cycleName IN ("{cycle_name}") '
+            f'AND cycleName IN ({cycle_clause}) '
             f'{folder_clause}'
         )
 
@@ -95,20 +97,28 @@ class ZephyrLibraryUat():
         print(all_executions)
         issue_key_expr = parse('$.issueKey')
         execution_status_expr = parse('$.execution.status.name')
+        cycle_name_expr = parse('$.execution.cycleName')
+        folder_name_expr = parse('$.execution.folderName')
 
         for issue in all_executions:
             # Extract values using JSONPath
             issue_key_matches = issue_key_expr.find(issue)
             execution_status_matches = execution_status_expr.find(issue)
+            cycle_matches = cycle_name_expr.find(issue)
+            folder_matches = folder_name_expr.find(issue)
 
             # Safely extract first match or fallback to None
             issue_key = issue_key_matches[0].value if issue_key_matches else None
             execution_status = execution_status_matches[0].value if execution_status_matches else None
+            cycle_val = cycle_matches[0].value if cycle_matches else None
+            folder_val = folder_matches[0].value if folder_matches else None
 
             # Append the extracted data
             new_data = {
                 "issue_key": issue_key,
-                "status": execution_status
+                "status": execution_status,
+                "cycle_name": cycle_val,
+                "folder_name": folder_val
             }
             data_list.append(new_data)
 

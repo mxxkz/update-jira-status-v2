@@ -19,29 +19,36 @@ def run_update_jira(selected_name):
 
     robot_file = os.path.join("services", "SQ4_Update_Jira_UAT.robot")
 
-    # Prepare variables
+    # --- จุดที่ 1: จัดการเรื่อง Cycle (รองรับทั้งแบบเดี่ยวและแบบ List) ---
+    # ถ้าใน YAML ใช้ 'cycle_names' (List) ให้เอามา join ด้วย ; 
+    # แต่ถ้าไม่มี ให้ถอยไปใช้ 'cycle_name' (String) ตัวเดียวแทนเพื่อไม่ให้โค้ดพัง
+    cycle_str = ";".join(record["cycle_names"])
+
+    # --- จุดที่ 2: เตรียม variables ให้ตรงกับชื่อในไฟล์ .robot ใหม่ ---
     variables = [
         f"WEBHOOK_PATH:{record['webhook_path']}",
         f"PROJECT:{record['project_name']}",
         f"VERSION:{record['version_name']}",
-        f"CYCLE:{record['cycle_name']}",
+        f"CYCLES_STR:{cycle_str}",  # เปลี่ยนจาก CYCLE เป็น CYCLES_STR
         f"ENV:{record['env']}"
     ]
 
-    # Add folders if present
+    # Add folders if present (เหมือนเดิม)
     if "folders" in record and record["folders"]:
         folder_str = ";".join(record["folders"])
         variables.append(f"FOLDERS_STR:{folder_str}")
+    else:
+        # ส่งค่าว่างไปเพื่อให้ Robot ไม่ Error เวลาดึงตัวแปร
+        variables.append("FOLDERS_STR:")
 
     # Run Robot Framework using Python API
-    # Don't pass stdout as a string; use default or None
     result_code = robot_run(
         robot_file,
         variable=variables,
-        log=None,       # Disable HTML log
-        report=None,    # Disable HTML report
-        output=None,    # Disable HTML output
-        console='NONE'  # Avoid stdout issues
+        # log=None,       
+        report=None,    
+        # output=None,   
+        # console='NONE'
     )
 
-    return result_code, "Robot run finished."
+    return result_code, f"Robot run finished for cycles: {cycle_str}"

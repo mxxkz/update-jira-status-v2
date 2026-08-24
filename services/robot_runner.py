@@ -45,10 +45,10 @@ def run_update_jira(selected_name):
     result_code = robot_run(
         robot_file,
         variable=variables,
-        # log=None,       
+        log=None,       
         report=None,    
-        # output=None,   
-        # console='NONE'
+        output=None,   
+        console='NONE'
     )
 
     return result_code, f"Robot run finished for cycles: {cycle_str}"

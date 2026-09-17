@@ -47,7 +47,7 @@ Batch Update Zephyr Executions To Sheet
     @{FOLDER_LIST}=    Run Keyword If    '${FOLDERS_STR}' != '${EMPTY}'    Split String    ${FOLDERS_STR}    ;
     ...                ELSE              Create List
     ${FINAL_DATA_LIST}=     Run Keyword If    '${FOLDERS_STR}' != '${EMPTY}'
-    ...    ZephyrLibraryUat.Get All Execution Navigation Results    ${PROJECT}    ${VERSION}    ${CYCLE_LIST}    ${FOLDER_LIST}
+    ...    ZephyrLibraryUat.Get All Execution Navigation Results    ${PROJECT}    ${VERSION}    ${CYCLE_LIST}    ${FOLDER_LIST}     
     ...    ELSE        
     ...    ZephyrLibraryUat.Get All Execution Navigation Results    ${PROJECT}    ${VERSION}    ${CYCLE_LIST}
 

@@ -9,7 +9,7 @@ import json
 import hashlib
 import requests
 import os
-
+from robot.api import logger
 class ZephyrLibraryUat():
     def __init__(self):
         self.zephyr_base_url = 'https://prod-api.zephyr4jiracloud.com/connect'
@@ -99,6 +99,7 @@ class ZephyrLibraryUat():
         execution_status_expr = parse('$.execution.status.name')
         cycle_name_expr = parse('$.execution.cycleName')
         folder_name_expr = parse('$.execution.folderName')
+        labels_expr = parse('$.issueLabel')
 
         for issue in all_executions:
             # Extract values using JSONPath
@@ -106,19 +107,22 @@ class ZephyrLibraryUat():
             execution_status_matches = execution_status_expr.find(issue)
             cycle_matches = cycle_name_expr.find(issue)
             folder_matches = folder_name_expr.find(issue)
+            label_matches = labels_expr.find(issue)
 
             # Safely extract first match or fallback to None
             issue_key = issue_key_matches[0].value if issue_key_matches else None
             execution_status = execution_status_matches[0].value if execution_status_matches else None
             cycle_val = cycle_matches[0].value if cycle_matches else None
             folder_val = folder_matches[0].value if folder_matches else None
+            labels_val = label_matches[0].value if label_matches else None
 
             # Append the extracted data
             new_data = {
                 "issue_key": issue_key,
                 "status": execution_status,
                 "cycle_name": cycle_val,
-                "folder_name": folder_val
+                "folder_name": folder_val,
+                "labels": labels_val
             }
             data_list.append(new_data)
 

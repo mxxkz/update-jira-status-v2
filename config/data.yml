@@ -1,12 +1,19 @@
 data:
-  - name: "VB Borrowing MVP1.5 CR"
+  - name: "VB Borrowing CLI & Hold DDR"
     project_name: "VB Goofy"
-    version_name: "MVP1.5"
-    cycle_names:
-      - "5.Borrowing_REG_CR MA ศปอท"
-      - "5.Borrowing_CR_New field for amortization table"
-    webhook_path: "/macros/s/AKfycbymeo49cdPVazoQhBQpu0lIVqQFt9UPdqRRIgKfNN6fBmcjbevMoHlbGx281cYq7RZg/exec"
-    env: "CR"
+    version_name: "1.4.0"
+    cycle_names: 
+      - "5.Borrowing_CR_CLI"
+    webhook_path: "/macros/s/AKfycby1ASXTNBz7RbpfkGdx8VdglMTrMqmt6XTEl2SC63Ssjc-Q8l_Nktn5He1RG0S_yrq_DA/exec"
+    env: "UAT"
+  # - name: "VB Borrowing MVP1.5 CR"
+  #   project_name: "VB Goofy"
+  #   version_name: "MVP1.5"
+  #   cycle_names:
+  #     - "5.Borrowing_REG_CR MA ศปอท"
+  #     - "5.Borrowing_CR_New field for amortization table"
+  #   webhook_path: "/macros/s/AKfycbymeo49cdPVazoQhBQpu0lIVqQFt9UPdqRRIgKfNN6fBmcjbevMoHlbGx281cYq7RZg/exec"
+  #   env: "CR"
   # - name: "VB Borrowing MVP1.5 UAT"
   #   project_name: "VB Goofy"
   #   version_name: "MVP1.5"

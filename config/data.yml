@@ -1,11 +1,21 @@
 data:
-  - name: "VB Borrowing CLI & Hold DDR"
+  - name: "VB Borrowing QR Cross bank"
     project_name: "VB Goofy"
-    version_name: "1.4.0"
+    version_name: "1.6.0"
     cycle_names: 
-      - "5.Borrowing_CR_CLI"
-    webhook_path: "/macros/s/AKfycbz0LndDgQ6ct4L9QWiqyXG1y-_XyOX-SRR-3z42bpct1PByefzhkGngclXjc6MeYQTcow/exec"
+      - "5.Borrowing_QRCrossBank_iOS"
+      - "5.Borrowing_QRCrossBank_AND"
+      - "5.Borrowing_CR_BannerByBiller"
+    webhook_path: "/macros/s/AKfycbxUQox3a4atlYT_iCWeuE06Td3isnWcqO0sHr4AVJNsPcTcf9TB9Lnqw09JY_tWdkIW/exec"
     env: "UAT"
+# data:
+#   - name: "VB Borrowing CLI & Hold DDR"
+#     project_name: "VB Goofy"
+#     version_name: "1.4.0"
+#     cycle_names: 
+#       - "5.Borrowing_CR_CLI"
+#     webhook_path: "/macros/s/AKfycbz0LndDgQ6ct4L9QWiqyXG1y-_XyOX-SRR-3z42bpct1PByefzhkGngclXjc6MeYQTcow/exec"
+#     env: "UAT"
   # - name: "VB Borrowing MVP1.5 CR"
   #   project_name: "VB Goofy"
   #   version_name: "MVP1.5"
